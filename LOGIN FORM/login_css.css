@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapi.com/css2?family=Poppins:wght@400;500;600&display=swap");
+*{
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    -webkit-user-select: none;
+    color: #e4cfa9;
+}
+
+.container {
+    width: 400px;
+    max-width: 400px;
+    margin: 1rem;
+    padding: 2rem;
+    /* border-radius: var( --border-radius ); */
+    border-radius: 0.5rem;
+    background-color: #3a4257;
+}
+
+.form--hidden{
+    display: none;
+}
+
+.form{
+    margin: 1rem;
+    text-align: center;
+}
+
+.form__input-group{
+    margin: 0.5rem;
+}
+
+.form__input{
+    /* display: block;      */
+    width: 50%;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border-radius: 0.4rem;
+    outline: none;
+    background-color: #3a4257;
+    /* border: 0.2rem solid rgb(28, 255, 225); */
+    /* outline-style: dashed; */
+    /* transition: width 2s, height 2s; learn it */
+}
+
+.form__input:focus{
+    /* border-color: #002939; */
+    background:  #e4cfa9;
+}
+
+.form__button{
+    width: 25%;
+    padding: 0.3rem;
+    box-sizing: border-box      ;
+    border-radius: 0.4rem;
+    font-weight: bold;
+    color: #e4cfa9;
+    background: #3a4257;
+    outline: none;
+    cursor: pointer;
+    -webkit-user-select: none;
+}
+
+.form__button:active{
+    /* transform: scale(0.80); */
+}
+
+
+
+
+
