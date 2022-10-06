@@ -21,8 +21,6 @@ if(nav_close){
 }
 
 
-
-
 /* ===== REMOVE MENU MOBILE ==== */
 const nav_link = document.querySelectorAll('.nav__link')    // automatically close the menu if click on links
 
