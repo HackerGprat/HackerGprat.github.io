@@ -29,3 +29,27 @@ function linkAction(){
     nav_menu.classList.remove('show-menu'); // when we click on each nav_link, we remove the show menu class
 }
 nav_link.forEach( n=> n.addEventListener('click', linkAction) );
+
+
+
+
+
+
+/* ===== ACCORDION SKILLS ==== */
+const skills_content = document.getElementsByClassName("skills__content"),
+      skills_header = document.querySelectorAll(".skills__header");
+
+function toggleSkills(){
+    let items_class = this.parentNode.className ;
+
+    for ( i=0 ; i < skills_content.length; i++ ){
+        skills_content[i].className = 'skills__content skills__close';
+    }
+    if ( items_class === 'skills__content skills__close'){
+        this.parentNode.className = "skills__content skills__open";
+    }
+}
+
+skills_header.forEach( (el)=> {
+    el.addEventListener('click', toggleSkills)
+});
