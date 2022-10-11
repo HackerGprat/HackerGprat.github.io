@@ -340,6 +340,26 @@ img{
     transition: .3s;
 }
 
+.button--flex{
+    display: inline-flex;
+    align-items: center;
+}
+
+.button--small{
+    padding: .75rem 1rem;
+}
+
+.button--link{
+    padding: 0;
+    background-color: transparent;
+    color: var(--first-color);
+}
+
+.button--link:hover{
+    background-color: transparent;
+    color: var(--first-color-alt);
+}
+
 /* ===== ABOUT ===== */
 .about__img{
     widows: 200px;
@@ -588,10 +608,33 @@ img{
 }
 
 .services__content:hover{
-    box-shadow: 0 4px 80px #000;    /*Play With Shaddow*/
+    box-shadow: 0 4px 8px #000;    /*Play With Shaddow*/
+}
+
+.services__icon{
+    display: block;;
+    font-size: 1.5rem;
+    color: var(--first-color);
+    margin-bottom: var(--mb-1);
+}
+
+.services__button{
+    cursor: pointer;
+    font-size: var(--small-font-size);
+}
+
+.services__button:hover .button__icon{   /*during hover effect only icon */
+    transform: translateX(.25rem);
+
+    /*playing with animations*/
+    /* transform: translateX(100%);     
+    transition: .75s; */
 }
 
 
 /* ===== ACTIVE MODAL ===== */
+/* ===== PORTFOLIO ===== */
+/* ===== PROJECT IN MIND ===== */
+/* ===== TESTIMONIAL ===== */
 
 
