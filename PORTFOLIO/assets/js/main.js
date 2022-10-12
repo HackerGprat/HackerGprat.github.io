@@ -79,4 +79,19 @@ tabs.forEach(tab => {
 
 
 /* ===== SERVICES MODAL ==== */
+const modal_views = document.querySelectorAll('.services__modal'),
+      modal_btns = document.querySelectorAll('.services__button'),
+      modal_closes = document.querySelectorAll('.services__button'),
+
+
+
+
+
+/* ===== PORTFOLIO SWIPER ==== */
+/* ===== TESTIMONIAL ==== */
+/* ===== SCROLL SECTIONS ACTIVE LINK ==== */
+/* ===== CHANGE BACKGROUND HEADER ==== */
+/* ===== SHOW SCROLL TOP ==== */
+/* ===== DARK LIGHT THEME ==== */
+
 

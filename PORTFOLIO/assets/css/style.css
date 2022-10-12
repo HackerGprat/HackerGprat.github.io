@@ -334,6 +334,11 @@ img{
     /* transform: translateY(.25rem); */
 }
 
+/* Extra Experiment */
+.button:hover .button__icon{
+    transform: translateX(.25rem);
+}
+
 .button__icon{
     font-size: 1.25rem;
     margin-left: var(--mb-0-5);
@@ -608,7 +613,8 @@ img{
 }
 
 .services__content:hover{
-    box-shadow: 0 4px 8px #000;    /*Play With Shaddow*/
+    /* box-shadow: 0 2px 8px #000;    Play With Shaddow */
+    box-shadow: -4px 0px 0px var(--first-color);    /*Play With Shaddow*/
 }
 
 .services__icon{
@@ -649,8 +655,8 @@ img{
     padding-inline-start: 0 1rem;
     z-index: var(--z-modal);
 
-    /* opacity: 0; */
-    /* visibility: hidden; */
+    opacity: 0;
+    visibility: hidden;
 
     transition: .3s;
 }
@@ -669,6 +675,26 @@ img{
 
 .services__modal-service{
     display: flex;
+}
+
+.services__modal-title{
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--mb-1-5);
+}
+
+.services__modal-close{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--first-color);
+    cursor: pointer;
+}
+
+.services__modal-icon{
+    color: var(--first-color);
+    margin-right: var(--mob-0-25);
 }
 
 
