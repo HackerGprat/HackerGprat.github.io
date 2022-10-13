@@ -697,17 +697,16 @@ img{
     margin-right: var(--mob-0-25);
 }
 
+/* ===== ACTIVE MODAL ===== */
 .active-modal{
     opacity: 1;
     visibility: visible;
 }
 
 
-
-
-
-/* ===== ACTIVE MODAL ===== */
 /* ===== PORTFOLIO ===== */
+
+
 /* ===== PROJECT IN MIND ===== */
 /* ===== TESTIMONIAL ===== */
 
