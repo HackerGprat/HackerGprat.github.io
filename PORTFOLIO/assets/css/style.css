@@ -697,6 +697,13 @@ img{
     margin-right: var(--mob-0-25);
 }
 
+.active-modal{
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
 
 
 /* ===== ACTIVE MODAL ===== */

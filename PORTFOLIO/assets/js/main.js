@@ -81,9 +81,30 @@ tabs.forEach(tab => {
 /* ===== SERVICES MODAL ==== */
 const modal_views = document.querySelectorAll('.services__modal'),
       modal_btns = document.querySelectorAll('.services__button'),
-      modal_closes = document.querySelectorAll('.services__button'),
+      modal_closes = document.querySelectorAll('.services__modal-close');
 
 
+// Whenever click on any modal, it will add a class "active-modal" in "services__modal", its css property already described in css
+let modal = function( modalClick ){
+    modal_views[ modalClick ].classList.add("active-modal");
+};
+
+// click on any "services__button" it will add "active-modal" class on it
+modal_btns.forEach( (modal_btn, i) =>  {
+    modal_btn.addEventListener('click', ()=>{
+        modal(i);
+    })
+})
+
+modal_closes.forEach( (modal_close) => {    
+    modal_close.addEventListener('click', ()=> {    
+        
+            modal_views.forEach( (modal_view) => {  
+                modal_view.classList.remove('active-modal');
+            })
+ 
+        })
+})
 
 
 
