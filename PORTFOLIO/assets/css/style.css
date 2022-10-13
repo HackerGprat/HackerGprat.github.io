@@ -335,6 +335,7 @@ img{
 }
 
 /* Extra Experiment */
+/* durign the hover on button , effect only the "button_icon" class*/
 .button:hover .button__icon{
     transform: translateX(.25rem);
 }
@@ -705,9 +706,39 @@ img{
 
 
 /* ===== PORTFOLIO ===== */
+.portfolio__container{
+    overflow:initial;
+}
+
+.portfolio__content{
+    padding: 0 1.5rem;
+}
+
+.portfolio__img{
+    width: 265px;
+    border-radius: .5rem;
+    justify-self: center;
+}
+
+.portfolio__title{
+    font-size: var(--h3-font-size);
+    margin-bottom: var(--mb-0-5);
+}
+
+.portfolio__description{
+    margin-bottom: var(--mb-0-75);
+}
+
+.portfolio__button:hover .button__icon{
+
+}
+
+
 
 
 /* ===== PROJECT IN MIND ===== */
 /* ===== TESTIMONIAL ===== */
+/* ===== CONTACT ME ===== */
+/* ===== FOOTER ===== */
 
 
