@@ -729,12 +729,17 @@ img{
     margin-bottom: var(--mb-0-75);
 }
 
-.portfolio__button:hover .button__icon{
-
+.swiper-button-prev::after,
+.swiper-button-next::after{
+    content: '';
 }
 
+.swiper-portfolio-icon{
+    font-size: 2rem;
+    color: var(--first-color);
+}
 
-
+.swiper
 
 /* ===== PROJECT IN MIND ===== */
 /* ===== TESTIMONIAL ===== */

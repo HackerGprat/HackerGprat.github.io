@@ -109,6 +109,25 @@ modal_closes.forEach( (modal_close) => {
 
 
 /* ===== PORTFOLIO SWIPER ==== */
+// copied from https://swiperjs.com/demos 
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    // mousewheel:true,
+    keyboard:true,
+  });
+
+
+
 /* ===== TESTIMONIAL ==== */
 /* ===== SCROLL SECTIONS ACTIVE LINK ==== */
 /* ===== CHANGE BACKGROUND HEADER ==== */
