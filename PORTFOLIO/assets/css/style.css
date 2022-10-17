@@ -729,17 +729,48 @@ img{
     margin-bottom: var(--mb-0-75);
 }
 
+/* overriding swiper css */
 .swiper-button-prev::after,
 .swiper-button-next::after{
     content: '';
 }
 
+/* overriding swiper css */
 .swiper-portfolio-icon{
     font-size: 2rem;
     color: var(--first-color);
 }
 
-.swiper
+/* overriding swiper css */
+.swiper-button-prev{
+    left: -.5rem;
+}
+
+/* overriding swiper css */
+.swiper-button-next{
+    right: -.5rem;
+}
+
+/* overriding swiper css */
+.swiper-horizontal > .swiper-pagination-bullets{
+    bottom: -2.5rem;
+}
+
+/* overriding swiper css */
+.swiper-pagination-bullet-active{
+    background-color: var(--first-color);
+}
+
+/* overriding swiper css */
+.swiper-button-next,
+.swiper-button-prev
+.swiper-pagination-bullet{
+    outline: none   ;
+}
+
+
+
+
 
 /* ===== PROJECT IN MIND ===== */
 /* ===== TESTIMONIAL ===== */
