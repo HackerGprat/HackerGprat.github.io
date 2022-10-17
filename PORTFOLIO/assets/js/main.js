@@ -110,9 +110,10 @@ modal_closes.forEach( (modal_close) => {
 
 /* ===== PORTFOLIO SWIPER ==== */
 // copied from https://swiperjs.com/demos 
-var swiper = new Swiper(".mySwiper", {
-    slidesPerView: 1,
-    spaceBetween: 30,
+var swiperPortfolio = new Swiper(".portfolio__container", {
+    // slidesPerView: 1,
+    // spaceBetween: 30,
+    grabCursor:true,
     loop: true,
     pagination: {
       el: ".swiper-pagination",
@@ -124,11 +125,24 @@ var swiper = new Swiper(".mySwiper", {
     },
     // mousewheel:true,
     keyboard:true,
-  });
+});
 
 
 
 /* ===== TESTIMONIAL ==== */
+// https://codesandbox.io/s/hoyjrj?file=/index.html:2000-2037
+var swiperTestimonial = new Swiper(".testimonial__container", {
+    grabCursor:true,
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+      dynamicBullets:true,
+    },
+    // mousewheel:true,
+    keyboard:true,
+});
+
 /* ===== SCROLL SECTIONS ACTIVE LINK ==== */
 /* ===== CHANGE BACKGROUND HEADER ==== */
 /* ===== SHOW SCROLL TOP ==== */
