@@ -73,10 +73,33 @@
 }
 
 /* ===== VARIABLES DARK THEME ===== */
-
+body.dark-theme{
+        /* HSL COLOR MODE - HSL : HUE, SATURATION, LIGHTNESS */ 
+        --first-color-second: hsl( var(--hue-color ), 30%, 8%);
+        --title-color: hsl( var(--hue-color ), 8%, 95%);
+        --text-color: hsl( var(--hue-color ), 8%, 75%);
+        --input-color: hsl( var(--hue-color ), 29%, 16%);
+        --body-color: hsl( var(--hue-color ), 28%, 12%);;
+        --container-color: hsl( var(--hue-color), 29%, 16% );
+    
+}
 
 /* ===== BUTTON DARK/LIGHT ===== */
+.nav__btns{
+    display: flex;
+    align-items: center;
+}
 
+.change-theme{
+    font-size: 1.25rem;
+    color: var(--title-color);
+    margin-right: var(--mb-1);
+    cursor: pointer;
+}
+
+.change-theme:hover{
+    color: var(--first-color);
+}
 
 /* ===== BASE ===== */
 *{
@@ -236,13 +259,24 @@ img{
     color: var(--first-color-alt);
 }
 
+/* javascript related, adding show menu after click event happens */
 /* ===== SHOW MENU ===== */
 .show-menu{
     bottom: 0;
 }
 
+/* javascript related */
 /* ===== active link ===== */
+.active-link{
+    color: var(--first-color);
+}
+
+/* javascript related */
 /* ===== CHANGE BACKGROUND HEADER ===== */
+.scroll-header{
+    box-shadow: 0 -1px 4px rgba(0, 0, 0, .15);
+}
+
 
 /* ===== HOME ===== */
 .home__container{
@@ -291,7 +325,8 @@ img{
 }
 
 .home__scroll{
-    display: none;      /* use javascript to enable / disable */
+    /* use javascript to enable / disable , effecting the first big logo */
+    display: none;      
 }
 
 .home__scroll-button{
@@ -913,8 +948,91 @@ img{
 }
 
 /* ===== FOOTER ===== */
+.footer{
+    padding-top: 2rem;
+}
+
+.footer__container{
+    row-gap: 3.5rem;
+}
+
+.footer__bg{
+    background-color: var(--first-color);
+    padding: 2rem 0 3rem;
+}
+
+.footer__title{
+    font-size: var(--h1-font-size);
+    margin-bottom: var(--mob-0-25);
+}
+
+.footer__subtitle{
+    font-size: var(--small-font-size);
+}
+
+.footer__links{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.5rem;
+}
+
+.footer__link:hover{
+    color: var(--first-color-lighter);
+}
+
+.footer__social{
+    font-size: 1.25rem;
+    margin-right: var(--mb-1-5);
+}
+
+.footer__social:hover{
+    color: var(--first-color-lighter);
+}
+
+.footer__copy{
+    font-size: var(--smaller-font-size);
+    text-align: center;
+    color: var(--text-color-light);
+    margin-top: var(--mb-3);
+}
+
+.footer__title,
+.footer__subtitle,
+.footer__link,
+.footer__social{
+    color: #fff;
+}
+
 /* ===== SCROLL UP ===== */
+.scrollup{
+    position: fixed;
+    right: 1rem;
+    /* debug check */
+    /* bottom: 5rem; */ 
+    bottom: -20rem;
+    background-color: var(--first-color-alt);
+    opacity: .8;
+    padding: 0 .3rem;
+    border-radius: .4rem;
+    z-index: var(--z-tooltip);
+    transition: .4s;
+}
+
+.scrollup:hover{
+    background-color: var(--first-color);
+}
+
+.scrollup__icon{
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+/* javascript related */
 /* Show Scroll */
+.show-scroll{
+    bottom: 5rem;
+}
+
 
 /* ===== MEDIA QUERIES ===== */
 /* For small Devices */
