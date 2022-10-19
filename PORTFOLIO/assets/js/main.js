@@ -134,10 +134,16 @@ var swiperPortfolio = new Swiper(".portfolio__container", {
 var swiperTestimonial = new Swiper(".testimonial__container", {
     grabCursor:true,
     loop: true,
+    spaceBetween:48,
     pagination: {
       el: ".swiper-pagination",
       clickable: true,
       dynamicBullets:true,
+    },
+    breakpoints:{
+        568:{
+            slidesPerView: 2,
+        }
     },
     // mousewheel:true,
     keyboard:true,
