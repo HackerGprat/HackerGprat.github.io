@@ -219,3 +219,5 @@ themeButton.addEventListener('click', ()=> {
     localStorage.setItem('selected-icon', getCurrentIcon());
 })
 
+/* ==================== Disable Right Click ==================== */
+var a = document.addEventListener('contextmenu', event => event.preventDefault());
