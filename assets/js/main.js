@@ -221,3 +221,10 @@ themeButton.addEventListener('click', ()=> {
 
 /* ==================== Disable Right Click ==================== */
 var a = document.addEventListener('contextmenu', event => event.preventDefault());
+
+
+
+function print_to_pdf()
+{
+    print();
+}
