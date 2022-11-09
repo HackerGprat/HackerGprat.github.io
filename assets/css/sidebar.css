@@ -41,14 +41,14 @@
         --normal-font-size: 1rem;
         --small-font-size: .85rem;
         --smaller-font-size: .8rem;
-    
     }
-    
 }
 
 
 /* ================= GOOGLE FONTS ================= */
-*,::before,::after{
+*,
+::before,
+::after{
     box-sizing: border-box;
 }
 
@@ -57,6 +57,7 @@ body{
     padding: 1rem 1rem 0;
 
     font-family: var(--body-font);
+    font-size: var(--normal-font-size);
 
     background-color: var(--body-color);
     color: var(--text-color);
@@ -78,6 +79,8 @@ img{
 
 /* ================= HEADER ================= */
 .header{
+    position: fixed;
+
     top: 0;
     left: 0;
     width: 100%;
@@ -150,7 +153,7 @@ img{
     position: fixed;
 
     top: 0;
-    left: 0;
+    left: -100%;    /* 0 for show, -100% to hide*/
     
     height: 100vh;
 
@@ -171,10 +174,11 @@ img{
     justify-content: space-between;
 
     overflow: auto;
-    scrollbar-width: none;  /* for mozilla */
+    /* for mozilla */
+    scrollbar-width: none;  
 }
 
-.nav::-webkit-scrollbar{
+.nav__container::-webkit-scrollbar{
     display: none;  /* for google chrome and others */
 }
 
@@ -235,7 +239,9 @@ img{
     transition: .4s ease-in-out;
     
     overflow: hidden;
-    /* max-height: 20px; */
+
+    /* go to show collapse to understand */
+    max-height: 20px;
 }
 
 .nav__dropdown-collapse{
@@ -261,16 +267,122 @@ img{
     color: var(--first-color);
 }
 
-CONTINUE : 24:49
-
+.nav__dropdown-icon{
+    margin-left: auto;
+}
 
 
 /* ================= SHOW COLLAPSE ================= */
-/* ================= ROTATE ICON ARROW ================= */
-/* ================= SHOW MENU ================= */
-/* ================= ACTIVE LINK ================= */
-/* ================= MEDIA QUERIES ================= */
+.nav__dropdown:hover{
+    max-height: 100rem;
+    transition: .4s;
+}
 
+
+/* ================= ROTATE ICON ARROW ================= */
+.nav__dropdown:hover .nav__dropdown-icon{
+    transform: rotate(180deg);
+}
+
+
+/* ================= SHOW MENU ================= */
+/* adding show-menu class using JavaScript */
+.show-menu{
+    left : 0;
+}
+
+/* ================= ACTIVE LINK ================= */
+/* adding "active" class using JavaScript */
+.active{
+    color: var(--first-color);
+}
+
+
+/* ================= MEDIA QUERIES ================= */
+/* FOR SMALL DEVICES REDUCE SEARCH */
+@media screen and (max-width: 320px) {
+    .header__search{
+        width: 70%;
+    }
+    
+}
+
+
+@media screen and (min-width: 768px) {
+    body{
+        padding: 1rem 3rem 0 6rem;
+    }
+
+    .header{
+        padding: 0 3rem 0 6rem;
+    }
+
+    .header__container{
+        height: calc( var(--header-height) + .5rem);
+    }
+
+    .header__search{
+        width: 300px;
+        padding: .5rem .75rem;
+    }
+    
+    .header__toggle{
+        display: none;
+    }
+
+    .header__logo{
+        display: block;
+    }
+
+    .header__img{
+        width: 40px;
+        height: 40px;
+        order: 1;
+    }
+    
+    .nav{
+        left: 0;
+        padding: 1.2rem 1.5rem;
+
+        /* hide names, bottom are related to make it effective */
+        width: 68px;
+    }
+
+    .nav__items{
+        row-gap: 1.7rem;
+    }
+
+    .nav__icon{
+        font-size: 1.3rem;
+    }
+    
+    .nav__logo-name,
+    .nav__name,
+    .nav__subtitle,
+    .nav__dropdown-icon{
+        opacity: 0;
+        transition: .3s;
+    }
+
+    .nav:hover{
+        width: var(--nav-width);
+    }
+
+    .nav:hover .nav__logo-name{
+        opacity: 1;
+    }
+    .nav:hover .nav__subtitle{
+        opacity: 1;
+    }
+    .nav:hover .nav__name{
+        opacity: 1;
+    }
+    .nav:hover .nav__dropdown-icon{
+        opacity: 1;
+    }
+
+
+}
 
 
 /* 
