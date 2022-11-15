@@ -3,11 +3,13 @@
 <html>
 
 <head>
-
+  
+  <!-- bootstrap cdn -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/css/bootstrap.min.css">
-
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+
+  <!-- jquery cdn -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
   <title>How To Download Youtube Video Using jQuery - Techsolutionstuff</title>
   
@@ -15,6 +17,7 @@
 
 
 <body class="bg-light">
+
   <div class="col-md-7 offset-md-3 mt-5">
     <div class="card">
       <div class="card-header bg-dark">
@@ -56,7 +59,9 @@
       </div>
     </div>
   </div>
+
 </body>
+
 <script type="text/javascript">
   $(".click-btn-down").click(function(){
     var link = $(".link").val();
@@ -68,4 +73,5 @@
       $('.download-video').html('<iframe style="width:100%;height:60px;border:0;overflow:hidden;" scrolling="no" src="https://loader.to/api/button/?url='+link+'&f='+formate+'"></iframe>');
   }
 </script>
+
 </html>
