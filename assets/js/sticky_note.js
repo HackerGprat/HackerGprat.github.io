@@ -3,14 +3,20 @@ const note_container = document.getElementById('app');
 // select first ".add-note" from note_continer
 const add_note_button = note_container.querySelector(".add-note");
 
-
+// localStorage.setItem("sticky_notes_storage", JSON.stringify( { "id": 1, "content": "Test Message"} ) );
 
 // Step 1: when the page first loads up... show currently exiested notes 
 
-F_get_notes().forEach( note => {
+// F_get_notes().forEach( note => {
+//     const note_element = F_create_note_element( note.id, note.content );    // note is comming from local storage...
+//     note_container.insertBefore( note_element, add_note_button );      // before "add button " add the the note
+// });
+
+const array_notes = F_get_notes();
+for ( var i = 0; i < array_notes.length; i++ ){
     const note_element = F_create_note_element( note.id, note.content );    // note is comming from local storage...
     note_container.insertBefore( note_element, add_note_button );      // before "add button " add the the note
-});
+}
 
 
 // 
