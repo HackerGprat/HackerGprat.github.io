@@ -1,0 +1,116 @@
+/* =============== Google Fonts - Poppins =============== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+
+
+/* ================== VARIABLES CSS ================== */
+
+        
+:root{
+    
+    /* ======= CHANGE FAVORITE COLORS ===== */
+    
+    --hue-color: 142;  /* purple 250 - green 142 - blue 230 - pink 340 */
+    
+    /* HSL COLOR MODE - HSL : HUE, SATURATION, LIGHTNESS */ 
+    --first-color: hsl(244, 75%, 57%);
+    --second-color: hsl(249, 64%, 47%);
+    
+    --title-color: hsl(244, 12%, 12%);
+    --text-color: hsl(244, 4%, 36%);
+
+    --body-color: hsl(208, 97%, 85%);
+    --glass-color: hsla(244, 16%, 92%, .6);
+    
+    /* ======= FONT AND TYPOGRAPHY ===== */
+    /* .5rem = 8px | 1rem = 160x ...  */
+    --body-font: 'Poppins', sans-serif;
+    --h2-font-size: 1.25rem;
+    --small-font-size: .8rem;
+    --smaller-font-size: .5rem;
+
+
+    /* ======= FONT AND TYPOGRAPHY ===== */
+    --font-medium: 500;
+    --font-semi-bold: 600;
+}
+
+
+/* ======= RESPONSIVE TYPOGRAPHY ===== */
+@media screen and (min-width: 1024px) {
+    :root{
+        --h2-font-size: 1.75rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .9rem;
+        --small-font-size: .75rem;
+    }
+}
+
+
+/* ============== BASE ============ */
+*{
+    box-sizing: border-box; 
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background-color: var(--body-color);
+    font-family: var(--body-font);
+    color: var(--text-color);
+}
+
+input,
+button{
+    font-family: var(--body-font);
+    border: none;
+    outline: none;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+
+/* ======= LOGIN FORM ===== */
+.login__content,
+.login__form,
+.login__inputs{
+    display: grid;
+}
+
+.login__content{
+    position: relative;
+    height: 100vh;
+    
+    align-items: center;
+}
+
+.login__img{
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+    /* height: 100vh; */
+ 
+    object-fit: cover;
+    object-position: center;
+
+}
+
+.login__form{
+    position: relative;
+    
+    background-color: var(--glass-color);
+ 
+}
+
+
+/* ======= RESPONSIVE TYPOGRAPHY ===== */
+
+
+
+
+
+
