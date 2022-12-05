@@ -1,0 +1,26 @@
+{
+    "name": "PWA tutorial",
+    "description": "This is a PWA tutorial from https://www.geeksforgeeks.org/making-a-simple-pwa-under-5-minutes/",
+    "short_name": "pwa",
+
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#5900b3",
+    "theme_color": "black",
+    "scope": ".",
+
+    "icons": [
+        {
+            "src": "./img/Hackergprat_200x200.png",
+            "size": "200x200",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "./img/Hackergprat_500x500.png.png",
+            "size": "500x500",
+            "type": "image/png"
+        }
+    ],
+    "id":"./index.html"
+}
