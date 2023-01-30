@@ -14,9 +14,11 @@ const add_note_button = note_container.querySelector(".add-note");
 
 const array_notes = F_get_notes();
 for ( var i = 0; i < array_notes.length; i++ ){
-    const note_element = F_create_note_element( note.id, note.content );    // note is comming from local storage...
+    const note = array_notes[i];
+    const note_element = F_create_note_element( note.id, note.content );    // note is coming from local storage...
     note_container.insertBefore( note_element, add_note_button );      // before "add button " add the the note
 }
+
 
 
 // 
@@ -24,10 +26,12 @@ add_note_button.addEventListener("click", () => F_add_note() );
 
 
 // get the stored data from local or create new empty one
-function F_get_notes(){
-
-    return JSON.parse(localStorage.getItem("sticky_notes_storage" || "[]") );
-    // JSON.parse converts json strings to native javascirpt array
+function F_get_notes() {
+  const storedNotes = localStorage.getItem("sticky_notes_storage");
+  if (storedNotes === null) {
+    return [];
+  }
+  return JSON.parse(storedNotes);
 }
 
 
@@ -56,6 +60,7 @@ function F_create_note_element( id, content ){
 
         if( do_delete ){
             F_delete_note( id );
+            
         }
         
     });
@@ -93,18 +98,20 @@ function F_update_note( id, new_content ) {
     
     console.log("Updating... Note...");
     console.log( id, new_content );
+
 }
 
 
 function F_delete_note( id, element ){
+    location.reload();
 
     const notes = F_get_notes().filter( note => note.id != id );
 
     F_save_note( notes );
 
     note_container.removeChild( element );
-    
+
     console.log("Deleting Note...");
     console.log(id);
+    
 }
-
