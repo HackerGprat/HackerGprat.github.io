@@ -228,3 +228,8 @@ function print_to_pdf()
 {
     print();
 }
+
+/* ==================== COPYRIGHT AUTOUPDATE YEAR ==================== */
+const currentYear = new Date().getFullYear();
+const copyrightNotice = `Copyright ${currentYear} HackerGprat. All rights reserved.`;
+document.getElementById("copyright").innerHTML = copyrightNotice;
