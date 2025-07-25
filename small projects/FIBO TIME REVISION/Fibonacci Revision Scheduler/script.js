@@ -212,11 +212,13 @@ function renderTable(count, dates, doneArr) {
 }
 
 // Helper to set heading
+/*
 function updateTitle(name) {
   titleEl.textContent = name
     ? `${name} Revision Scheduler`
     : "Fibonacci Revision Scheduler";
 }
+*/
 
 document.getElementById("settingsForm").addEventListener("submit", function (e) {
   e.preventDefault();
@@ -267,4 +269,71 @@ document.getElementById("toggleDarkMode").addEventListener("click", () => {
     btn.classList.remove("btn-outline-light");
     btn.classList.add("btn-outline-dark");
   }
+});
+
+
+// Export to ICS format
+document.getElementById("exportIcsBtn").addEventListener("click", () => {
+  const scheduleName = document.getElementById("scheduleName").value.trim() || "schedule";
+  const eventTime = document.getElementById("eventTime").value || "09:00";
+
+  const [hourStr, minuteStr] = eventTime.split(":");
+  const hour = parseInt(hourStr, 10);
+  const minute = parseInt(minuteStr, 10);
+
+  const lines = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//RevisionScheduler//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    "BEGIN:VTIMEZONE",
+    "TZID:Asia/Kolkata",
+    "X-LIC-LOCATION:Asia/Kolkata",
+    "BEGIN:STANDARD",
+    "TZOFFSETFROM:+0530",
+    "TZOFFSETTO:+0530",
+    "TZNAME:IST",
+    "DTSTART:19700101T000000",
+    "END:STANDARD",
+    "END:VTIMEZONE"
+  ];
+
+  Array.from(document.querySelectorAll("#revisionsTable tbody tr")).forEach((tr, index) => {
+    const idx = tr.children[0].innerText.trim();
+    const dateText = tr.children[1].innerText.trim().split(" ")[0]; // e.g. "25/07/2025"
+    const [dd, mm, yyyy] = dateText.split("/");
+
+    const ymd = `${yyyy}${mm}${dd}`;
+
+    // Calculate end time (10 minutes later)
+    let endHour = hour;
+    let endMinute = minute + 10;
+    if (endMinute >= 60) {
+      endHour += 1;
+      endMinute -= 60;
+    }
+
+    const pad = (num) => num.toString().padStart(2, "0");
+    const startTimeStr = `${pad(hour)}${pad(minute)}00`;
+    const endTimeStr = `${pad(endHour)}${pad(endMinute)}00`;
+
+    lines.push("BEGIN:VEVENT");
+    lines.push(`UID:${scheduleName}-rev-${idx}-${ymd}@revision.app`);
+    lines.push(`DTSTAMP:${ymd}T${startTimeStr}`);
+    lines.push(`DTSTART;TZID=Asia/Kolkata:${ymd}T${startTimeStr}`);
+    lines.push(`DTEND;TZID=Asia/Kolkata:${ymd}T${endTimeStr}`);
+    lines.push(`SUMMARY:${scheduleName} - Revision #${idx}`);
+    lines.push("END:VEVENT");
+  });
+
+  lines.push("END:VCALENDAR");
+
+  const blob = new Blob([lines.join("\r\n")], { type: "text/calendar" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${scheduleName.replace(/\s+/g, "_").toLowerCase()}_schedule.ics`;
+  a.click();
+  URL.revokeObjectURL(url);
 });
