@@ -1,3 +1,12 @@
+/* ==================== SPLASH SCREEN ==================== */
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(function() {
+    document.getElementById('splash').classList.add('hidden');
+    document.getElementById('main-content').style.display = 'block';
+  }, 1000); // Splash screen stays for 2 seconds
+});
+
+
 /* ==================== MENU SHOW Y HIDDEN ==================== */
 const nav_menu = document.getElementById('nav-menu'),
       nav_toggle = document.getElementById('nav-toggle'),
