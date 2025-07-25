@@ -261,11 +261,11 @@ document.getElementById("toggleDarkMode").addEventListener("click", () => {
 
   const btn = document.getElementById("toggleDarkMode");
   if (document.body.classList.contains("dark-mode")) {
-    btn.textContent = "☀️ Light Mode";
+    btn.textContent = "☀️";
     btn.classList.remove("btn-outline-dark");
     btn.classList.add("btn-outline-light");
   } else {
-    btn.textContent = "🌙 Dark Mode";
+    btn.textContent = "🌙";
     btn.classList.remove("btn-outline-light");
     btn.classList.add("btn-outline-dark");
   }
