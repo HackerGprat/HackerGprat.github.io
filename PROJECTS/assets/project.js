@@ -1,14 +1,14 @@
 // List your projects here. 'url' is relative to index.html
 const projects = [
-  {
-    name: 'Fibo Revision Scheduler',
-    url: './fibo-time-revision/fibo-revision-scheduler-day/index.html',
-    thumb: './fibo-time-revision/fibo-revision-scheduler-day/thumbnail.jpg'
-  },
-  {
-    name: 'Fibo Revision Scheduler',
+    {
+    name: 'HOUR - Fibo Revision Scheduler',
     url: './fibo-time-revision/fibo-revision-scheduler-day/index.html',
     thumb: './fibo-time-revision/fibo-revision-scheduler-hour/thumbnail.jpg'
+  },
+  {
+    name: 'DAY - Fibo Revision Scheduler',
+    url: './fibo-time-revision/fibo-revision-scheduler-day/index.html',
+    thumb: './fibo-time-revision/fibo-revision-scheduler-day/thumbnail.jpg'
   },
   // …add more entries as needed
 ];
