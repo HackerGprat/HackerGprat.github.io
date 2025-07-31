@@ -1,0 +1,12 @@
+.container-sm {
+  max-width: 600px;
+}
+
+.bg-warning {
+  background-color: #fff3cd !important;
+}
+
+.table td,
+.table th {
+  vertical-align: middle !important;
+}

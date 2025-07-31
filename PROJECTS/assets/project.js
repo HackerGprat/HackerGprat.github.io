@@ -1,5 +1,10 @@
 // List your projects here. 'url' is relative to index.html
 const projects = [
+  {
+    name: 'CUSTOM - REVISION GAPS',
+    url: './fibo-time-revision/custom_revision_gaps/index.html',
+    thumb: './fibo-time-revision/custom_revision_gaps/thumbnail.jpg'
+  },
     {
     name: 'HOUR - Fibo Revision Scheduler',
     url: './fibo-time-revision/fibo-revision-scheduler-day/index.html',
@@ -10,6 +15,7 @@ const projects = [
     url: './fibo-time-revision/fibo-revision-scheduler-day/index.html',
     thumb: './fibo-time-revision/fibo-revision-scheduler-day/thumbnail.jpg'
   },
+
   // …add more entries as needed
 ];
 

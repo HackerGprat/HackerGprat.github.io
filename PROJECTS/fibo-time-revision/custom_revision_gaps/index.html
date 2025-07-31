@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Custom Revision Scheduler</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container-sm py-4 px-3">
+    <h1 class="text-center mb-4">Custom Revision Scheduler</h1>
+
+    <!-- Single Revision Title -->
+    <div class="mb-3">
+      <label for="scheduleTitle" class="form-label">Revision Title</label>
+      <input
+        type="text"
+        id="scheduleTitle"
+        class="form-control"
+        placeholder="e.g. Math Practice"
+      />
+    </div>
+
+    <!-- Start Date & Time Picker -->
+    <div class="mb-4">
+      <label for="startDateTime" class="form-label">Start Date & Time</label>
+      <input
+        type="datetime-local"
+        id="startDateTime"
+        class="form-control bg-warning"
+        required
+      />
+    </div>
+
+    <!-- Revisions Table -->
+    <div class="table-responsive mb-3">
+      <table
+        class="table table-bordered table-sm text-center align-middle"
+        id="customTable"
+      >
+        <thead class="table-light">
+          <tr>
+            <th>SL. NO.</th>
+            <th>Gap (days)</th>
+            <th>Revision Date</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Grouped Buttons -->
+    <div class="d-flex justify-content-between">
+      <button id="addRevisionBtn" class="btn btn-outline-primary">
+        ➕ Add Revision Row
+      </button>
+      <button id="exportIcsBtn" class="btn btn-outline-success">
+        📅 Export to Calendar
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
