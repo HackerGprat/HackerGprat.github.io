@@ -1,156 +1,226 @@
-// Grab DOM elements
-const titleInput = document.getElementById("scheduleTitle");
-const dateInput  = document.getElementById("startDateTime");
-const addBtn     = document.getElementById("addRevisionBtn");
-const exportBtn  = document.getElementById("exportIcsBtn");
-const tableBody  = document.querySelector("#customTable tbody");
+// script.js
 
-// Store each revision row’s gap and calculated date
-let revisionRows = [];
+document.addEventListener('DOMContentLoaded', () => {
+  // ——————————————————————————————
+  // V_VARIABLES: DOM REFERENCES & STATE
+  // ——————————————————————————————
+  const V_schedule_title_input   = document.getElementById('scheduleTitle')
+  const V_start_datetime_input   = document.getElementById('startDateTime')
+  const V_add_revision_btn       = document.getElementById('addRevisionBtn')
+  const V_export_calendar_btn    = document.getElementById('exportIcsBtn')
+  const V_revisions_table_body   = document.querySelector('#customTable tbody')
 
-// Add a new revision row
-addBtn.addEventListener("click", () => {
-  const index = revisionRows.length + 1;
+  const V_STORAGE_KEY_TITLE      = 'revision_scheduler_title'
+  const V_STORAGE_KEY_START      = 'revision_scheduler_start'
+  const V_STORAGE_KEY_GAPS       = 'revision_scheduler_gaps'
 
-  // Create table row and cells
-  const row      = document.createElement("tr");
-  const cellNo   = document.createElement("td");
-  const cellGap  = document.createElement("td");
-  const cellDate = document.createElement("td");
+  let   V_revision_rows = []  // holds { row_element, gap_input, cell_date, date_obj }
 
-  // SL. NO.
-  cellNo.textContent = index;
+  // ——————————————————————————————
+  // INITIAL LOAD + EVENT HOOKUPS
+  // ——————————————————————————————
+  F_load_from_storage()
+  F_update_revision_dates()
 
-  // Gap input field
-  const gapInput = document.createElement("input");
-  gapInput.type      = "number";
-  gapInput.min       = "0";
-  gapInput.className = "form-control gap-input";
-  gapInput.addEventListener("input", updateDates);
+  V_schedule_title_input.addEventListener('input', F_save_to_storage)
+  V_start_datetime_input.addEventListener('input', () => {
+    F_save_to_storage()
+    F_update_revision_dates()
+  })
+  V_add_revision_btn.addEventListener('click', () => {
+    F_add_revision_row()
+    F_save_to_storage()
+    F_update_revision_dates()
+  })
+  V_export_calendar_btn.addEventListener('click', F_export_to_calendar)
 
-  // Append gap input and date cell
-  cellGap.appendChild(gapInput);
-  cellDate.className = "revision-date";
+  // ——————————————————————————————
+  // F_load_from_storage: restore state from localStorage
+  // ——————————————————————————————
+  function F_load_from_storage() {
+    V_schedule_title_input.value = localStorage.getItem(V_STORAGE_KEY_TITLE) || ''
+    V_start_datetime_input.value = localStorage.getItem(V_STORAGE_KEY_START) || ''
 
-  // Assemble row
-  row.append(cellNo, cellGap, cellDate);
-  tableBody.appendChild(row);
-
-  // Keep track of row elements
-  revisionRows.push({ gapInput, cellDate, dateObj: null });
-});
-
-// Recalculate all revision dates
-function updateDates() {
-  const startValue = dateInput.value;
-  if (!startValue) return;
-
-  const baseDate = new Date(startValue);
-  let totalGap   = 0;
-
-  revisionRows.forEach((row) => {
-    // Get gap and accumulate
-    const gap = parseInt(row.gapInput.value, 10) || 0;
-    totalGap += gap;
-
-    // Compute this revision’s date
-    const revDate = new Date(baseDate);
-    revDate.setDate(revDate.getDate() + totalGap);
-
-    // Format for display
-    const formatted = revDate.toLocaleString("en-GB", {
-      weekday: "short",
-      day:     "2-digit",
-      month:   "short",
-      year:    "numeric",
-      hour:    "2-digit",
-      minute:  "2-digit",
-    });
-
-    // Update table cell and save Date object
-    row.cellDate.textContent = formatted;
-    row.dateObj = revDate;
-  });
-}
-
-// When start date changes, recalc all dates
-dateInput.addEventListener("input", updateDates);
-
-// Export revisions to .ics for Google Calendar
-exportBtn.addEventListener("click", () => {
-  const title = titleInput.value.trim();
-  if (!title) {
-    alert("Please enter a Revision Title at the top.");
-    return;
-  }
-  if (!dateInput.value || revisionRows.length === 0) {
-    alert("Set a start date and add at least one revision.");
-    return;
+    const gap_values = JSON.parse(localStorage.getItem(V_STORAGE_KEY_GAPS) || '[]')
+    gap_values.forEach(g => F_add_revision_row(g))
   }
 
-  // ICS header and timezone block
-  const icsLines = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//CustomScheduler//EN",
-    "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
-    "BEGIN:VTIMEZONE",
-    "TZID:Asia/Kolkata",
-    "X-LIC-LOCATION:Asia/Kolkata",
-    "BEGIN:STANDARD",
-    "TZOFFSETFROM:+0530",
-    "TZOFFSETTO:+0530",
-    "TZNAME:IST",
-    "DTSTART:19700101T000000",
-    "END:STANDARD",
-    "END:VTIMEZONE"
-  ];
+  // ——————————————————————————————
+  // F_save_to_storage: persist state to localStorage
+  // ——————————————————————————————
+  function F_save_to_storage() {
+    const gap_values = V_revision_rows.map(r => r.gap_input.value)
+    localStorage.setItem(V_STORAGE_KEY_TITLE, V_schedule_title_input.value)
+    localStorage.setItem(V_STORAGE_KEY_START, V_start_datetime_input.value)
+    localStorage.setItem(V_STORAGE_KEY_GAPS, JSON.stringify(gap_values))
+  }
 
-  // Helper to zero-pad numbers
-  const pad = (n) => n.toString().padStart(2, "0");
+  // ——————————————————————————————
+  // F_add_revision_row: create one table row
+  // ——————————————————————————————
+  function F_add_revision_row(initial_gap = '') {
+    const index       = V_revision_rows.length + 1
+    const row_element = document.createElement('tr')
+    const cell_no     = document.createElement('td')
+    const cell_gap    = document.createElement('td')
+    const cell_date   = document.createElement('td')
+    const cell_action = document.createElement('td')
 
-  // Create one event per revision row
-  revisionRows.forEach((row, i) => {
-    const date = row.dateObj;
-    if (!date) return;
+    // SL. NO.
+    cell_no.textContent = index
 
-    // Format date/time parts
-    const yyyy = date.getFullYear();
-    const mm   = pad(date.getMonth() + 1);
-    const dd   = pad(date.getDate());
-    const hh   = pad(date.getHours());
-    const min  = pad(date.getMinutes());
+    // Gap input
+    const gap_input = document.createElement('input')
+    gap_input.type      = 'number'
+    gap_input.min       = '0'
+    gap_input.className = 'form-control'
+    gap_input.value     = initial_gap
+    gap_input.addEventListener('input', () => {
+      F_update_revision_dates()
+      F_save_to_storage()
+    })
+    cell_gap.appendChild(gap_input)
 
-    const dtStart = `${yyyy}${mm}${dd}T${hh}${min}00`;
+    // Date cell placeholder
+    cell_date.className = 'revision-date'
 
-    // End time = 10 minutes later
-    const endDt = new Date(date);
-    endDt.setMinutes(endDt.getMinutes() + 10);
-    const ehh = pad(endDt.getHours());
-    const emin = pad(endDt.getMinutes());
-    const dtEnd = `${yyyy}${mm}${dd}T${ehh}${emin}00`;
+    // Delete button
+    const delete_btn = document.createElement('button')
+    delete_btn.textContent = '🗑️'
+    delete_btn.className   = 'btn btn-sm btn-outline-danger'
+    delete_btn.addEventListener('click', () => {
+      row_element.remove()
+      V_revision_rows = V_revision_rows.filter(r => r.row_element !== row_element)
+      F_refresh_row_numbers()
+      F_save_to_storage()
+      F_update_revision_dates()
+    })
+    cell_action.appendChild(delete_btn)
 
-    // Build VEVENT block
-    icsLines.push("BEGIN:VEVENT");
-    icsLines.push(`UID:rev-${i + 1}-${yyyy}${mm}${dd}@revision.app`);
-    icsLines.push(`DTSTAMP:${dtStart}`);
-    icsLines.push(`DTSTART;TZID=Asia/Kolkata:${dtStart}`);
-    icsLines.push(`DTEND;TZID=Asia/Kolkata:${dtEnd}`);
-    icsLines.push(`SUMMARY:${title} - # ${i + 1}`);
-    icsLines.push("END:VEVENT");
-  });
+    // Assemble and append row
+    row_element.append(cell_no, cell_gap, cell_date, cell_action)
+    V_revisions_table_body.appendChild(row_element)
 
-  icsLines.push("END:VCALENDAR");
+    // Track row
+    V_revision_rows.push({
+      row_element,
+      gap_input,
+      cell_date,
+      date_obj: null
+    })
 
-  // Create blob and trigger download
-  const blob = new Blob([icsLines.join("\r\n")], {
-    type: "text/calendar"
-  });
-  const url = URL.createObjectURL(blob);
-  const a   = document.createElement("a");
-  a.href    = url;
-  a.download = `${titleInput.value}.ics`;
-  a.click();
-  URL.revokeObjectURL(url);
-});
+    F_refresh_row_numbers()
+  }
+
+  // ——————————————————————————————
+  // F_refresh_row_numbers: reassign SL. NO.
+  // ——————————————————————————————
+  function F_refresh_row_numbers() {
+    V_revision_rows.forEach((r, i) => {
+      r.row_element.children[0].textContent = i + 1
+    })
+  }
+
+  // ——————————————————————————————
+  // F_update_revision_dates: recalc dates from gaps
+  // ——————————————————————————————
+  function F_update_revision_dates() {
+    if (!V_start_datetime_input.value) return
+
+    const base_dt = new Date(V_start_datetime_input.value)
+    let   total_gap = 0
+
+    V_revision_rows.forEach(r => {
+      const gap_days = parseInt(r.gap_input.value, 10) || 0
+      total_gap += gap_days
+
+      const rev_dt = new Date(base_dt)
+      rev_dt.setDate(rev_dt.getDate() + total_gap)
+
+      r.date_obj        = rev_dt
+      r.cell_date.textContent = rev_dt.toLocaleString('en-GB', {
+        weekday: 'short',
+        day:     '2-digit',
+        month:   'short',
+        year:    'numeric',
+        hour:    '2-digit',
+        minute:  '2-digit'
+      })
+    })
+  }
+
+  // ——————————————————————————————
+  // F_export_to_calendar: build & download .ics file
+  // ——————————————————————————————
+  function F_export_to_calendar() {
+    const title_text = V_schedule_title_input.value.trim()
+    if (!title_text) {
+      alert('Please enter a Revision Title.')
+      return
+    }
+    if (!V_start_datetime_input.value || V_revision_rows.length === 0) {
+      alert('Set a start date/time and add at least one revision.')
+      return
+    }
+
+    // ICS header + timezone
+    const ics_lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//RevisionScheduler//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VTIMEZONE',
+      'TZID:Asia/Kolkata',
+      'X-LIC-LOCATION:Asia/Kolkata',
+      'BEGIN:STANDARD',
+      'TZOFFSETFROM:+0530',
+      'TZOFFSETTO:+0530',
+      'TZNAME:IST',
+      'DTSTART:19700101T000000',
+      'END:STANDARD',
+      'END:VTIMEZONE'
+    ]
+
+    // Helper to format date to ICS timestamp
+    const to_ics_stamp = dt => {
+      const pad2 = n => String(n).padStart(2, '0')
+      return (
+        dt.getFullYear() +
+        pad2(dt.getMonth() + 1) +
+        pad2(dt.getDate()) +
+        'T' +
+        pad2(dt.getHours()) +
+        pad2(dt.getMinutes()) +
+        '00'
+      )
+    }
+
+    // Build VEVENT for each revision
+    V_revision_rows.forEach((r, i) => {
+      if (!r.date_obj) return
+
+      const dt_start = to_ics_stamp(r.date_obj)
+      const dt_end   = to_ics_stamp(new Date(r.date_obj.getTime() + 10 * 60 * 1000))
+
+      ics_lines.push('BEGIN:VEVENT')
+      ics_lines.push(`UID:rev-${i + 1}-${dt_start}@revision.app`)
+      ics_lines.push(`DTSTAMP:${dt_start}`)
+      ics_lines.push(`DTSTART;TZID=Asia/Kolkata:${dt_start}`)
+      ics_lines.push(`DTEND;TZID=Asia/Kolkata:${dt_end}`)
+      ics_lines.push(`SUMMARY:${title_text} - Revision ${i + 1}`)
+      ics_lines.push('END:VEVENT')
+    })
+
+    ics_lines.push('END:VCALENDAR')
+
+    // Download ICS
+    const blob = new Blob([ics_lines.join('\r\n')], { type: 'text/calendar' })
+    const url  = URL.createObjectURL(blob)
+    const a    = document.createElement('a')
+    a.href     = url
+    a.download = `${title_text}.ics`
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+})
