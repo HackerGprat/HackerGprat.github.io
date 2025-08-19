@@ -1,0 +1,77 @@
+/* Sidebar positioning and transition */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: #f8f9fa;
+  overflow-y: auto;
+  transform: translateX(-250px);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar.show {
+  transform: translateX(0);
+}
+
+/* Shift main content when sidebar opens */
+#content {
+  margin-left: 0;
+  transition: margin-left 0.3s ease;
+}
+
+#content.shift {
+  margin-left: 250px;
+}
+
+/* Hamburger icon */
+.hamburger {
+  width: 30px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  background: #333;
+  margin: 5px 0;
+  transition: background 0.3s ease;
+}
+
+/* Base link styles */
+.nav-link {
+  color: #333 !important;
+  padding-left: 1rem;
+  position: relative;
+}
+
+/* Submenus hidden by default */
+.submenu {
+  display: none;
+}
+
+/* Show when toggled */
+.submenu.show {
+  display: block;
+}
+
+/* Indent deeper levels */
+.nav .nav .nav-link {
+  padding-left: 2rem;
+  font-size: 0.9rem;
+}
+
+/* Caret indicator for items with children */
+.nav-link.has-submenu::after {
+  content: '►';   /* ► */
+  position: absolute;
+  right: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Rotate caret when open */
+.nav-link.has-submenu.active::after {
+  transform: rotate(90deg);
+}
